@@ -21,7 +21,6 @@ static NSString *cellID = @"cellID";
 
 -(void)registerTableView:(UITableView *)tableView andTeam:(Team *)team
 {
-    [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:cellID];
     self.team = team;
 }
 
@@ -33,10 +32,23 @@ static NSString *cellID = @"cellID";
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+    if (!cell)
+    {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellID];
+    }
     
     Person *person = [self.team.persons objectAtIndexedSubscript:indexPath.row];
     
     cell.textLabel.text = person.name;
+    if ([person.role isEqual:@1])
+    {
+        cell.detailTextLabel.text = @"Coach";
+    }
+    else
+    {
+        cell.detailTextLabel.text = @"Player";
+    }
+    
     
     return cell;
 }

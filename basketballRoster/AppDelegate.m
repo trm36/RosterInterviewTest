@@ -8,6 +8,10 @@
 
 #import "AppDelegate.h"
 #import "ViewController.h"
+#import "TeamController.h"
+#import "Team.h"
+#import "Person.h"
+#import "Stack.h"
 
 @interface AppDelegate ()
 
@@ -17,9 +21,84 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"hasLaunched"])
+    {
+        [[TeamController sharedInstance] addTeamWithName:@"DevMountain Ballers"];
+        
+        Team *devmntBallers = [[TeamController sharedInstance].teams firstObject];
+        
+        Person *coach = [NSEntityDescription insertNewObjectForEntityForName:@"Person" inManagedObjectContext:[Stack sharedInstance].managedObjectContext];
+        coach.name = @"Asa Roberts";
+        coach.phone = @"801-555-6914";
+        coach.email = @"aroberts@sample.com";
+        coach.role = @1;
+        coach.team = devmntBallers;
+        
+        Person *p1 = [NSEntityDescription insertNewObjectForEntityForName:@"Person" inManagedObjectContext:[Stack sharedInstance].managedObjectContext];
+        p1.name = @"Chase Baker";
+        p1.phone = @"801-555-1234";
+        p1.email = @"cbaker@sample.com";
+        p1.role = @0;
+        p1.team = devmntBallers;
+        
+        Person *p2 = [NSEntityDescription insertNewObjectForEntityForName:@"Person" inManagedObjectContext:[Stack sharedInstance].managedObjectContext];
+        p2.name = @"Brayden Robinson";
+        p2.phone = @"801-555-2345";
+        p2.email = @"brobinson@sample.com";
+        p2.role = @0;
+        p2.team = devmntBallers;
+        
+        Person *p3 = [NSEntityDescription insertNewObjectForEntityForName:@"Person" inManagedObjectContext:[Stack sharedInstance].managedObjectContext];
+        p3.name = @"Chad Gavins";
+        p3.phone = @"801-555-3456";
+        p3.email = @"cgavins@sample.com";
+        p3.role = @0;
+        p3.team = devmntBallers;
+        
+        Person *p4 = [NSEntityDescription insertNewObjectForEntityForName:@"Person" inManagedObjectContext:[Stack sharedInstance].managedObjectContext];
+        p4.name = @"Trent Richards";
+        p4.phone = @"801-555-4567";
+        p4.email = @"trichards@sample.com";
+        p4.role = @0;
+        p4.team = devmntBallers;
+        
+        Person *p5 = [NSEntityDescription insertNewObjectForEntityForName:@"Person" inManagedObjectContext:[Stack sharedInstance].managedObjectContext];
+        p5.name = @"John Hunter";
+        p5.phone = @"801-555-5678";
+        p5.email = @"jhunter@sample.com";
+        p5.role = @0;
+        p5.team = devmntBallers;
+        
+        Person *p6 = [NSEntityDescription insertNewObjectForEntityForName:@"Person" inManagedObjectContext:[Stack sharedInstance].managedObjectContext];
+        p6.name = @"Parley Coombs";
+        p6.phone = @"801-555-6789";
+        p6.email = @"pcoombs@sample.com";
+        p6.role = @0;
+        p6.team = devmntBallers;
+        
+        Person *p7 = [NSEntityDescription insertNewObjectForEntityForName:@"Person" inManagedObjectContext:[Stack sharedInstance].managedObjectContext];
+        p7.name = @"Quinn Brandon";
+        p7.phone = @"801-555-7890";
+        p7.email = @"qbrandon@sample.com";
+        p7.role = @0;
+        p7.team = devmntBallers;
+        
+        Person *p8 = [NSEntityDescription insertNewObjectForEntityForName:@"Person" inManagedObjectContext:[Stack sharedInstance].managedObjectContext];
+        p8.name = @"Jarron Mansfield";
+        p8.phone = @"801-555-8901";
+        p8.email = @"jmansfield@sample.com";
+        p8.role = @0;
+        p8.team = devmntBallers;
+        
+        [[Stack sharedInstance].managedObjectContext save:nil];
+        
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasLaunched"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
     
     self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[ViewController new]];
     
